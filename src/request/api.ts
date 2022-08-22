@@ -33,3 +33,11 @@ export function getRoleList() {
         method: 'GET'
     })
 }
+
+// 权限列表接口
+export function getAuthorityList() {
+    return request({
+        url: 'getAuthorityList',
+        method: 'GET'
+    })
+}

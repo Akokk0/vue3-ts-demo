@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-col :span="4"><img src="@/assets/logo.png" class="logo"></el-col>
           <el-col :span="16"><h2>后台管理系统</h2></el-col>
-          <el-col :span="4"><span class="quit-login">退出登录</span></el-col>
+          <el-col :span="4" class="col-btn"><el-button @click="loginOut">退出登录</el-button></el-col>
         </el-row>
       </el-header>
       <el-container>
@@ -14,7 +14,7 @@
               active-text-color="#ffd04b"
               background-color="#545c64"
               class="el-menu-vertical-demo"
-              default-active="2"
+              :default-active="$route.path"
               text-color="#fff"
               router
           >
@@ -33,11 +33,17 @@
 </template>
 
 <script lang="ts" setup>
-  import {useRouter} from "vue-router";
+  import {useRouter, useRoute} from "vue-router";
 
   const $router = useRouter()
+  const $route = useRoute()
 
   const routerList = $router.getRoutes().filter(r => r.meta.isShow)
+
+  const loginOut = () => {
+    localStorage.removeItem('token')
+    $router.replace('/login')
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -52,6 +58,10 @@
       height: 80px;
       line-height: 80px;
       color: white;
+    }
+    .col-btn {
+      height: 80px;
+      line-height: 80px;
     }
   }
   .el-aside {
